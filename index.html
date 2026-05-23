@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sweat&co — Le style décontracté pour les jeunes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --lilas: #DDD0EC;
+    --menthe: #C8E6D8;
+    --blanc: #F9F7F4;
+    --lilas-dark: #9B7FC0;
+    --menthe-dark: #5AA882;
+    --text: #2A2A2A;
+    --text-light: #6B6B6B;
+    --white: #ffffff;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--blanc); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: rgba(249,247,244,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(221,208,236,0.3);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; letter-spacing: 0.02em; color: var(--text); }
+  .logo span { color: var(--lilas-dark); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.88rem; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--lilas-dark); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .nav-right span { font-size: 0.85rem; color: var(--text-light); cursor: pointer; }
+  .cart-btn {
+    background: var(--lilas-dark); color: white; border: none; border-radius: 20px;
+    padding: 0.45rem 1.1rem; font-size: 0.82rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.03em; transition: background 0.2s;
+  }
+  .cart-btn:hover { background: #8060aa; }
+
+  /* HERO */
+  .hero {
+    min-height: 88vh; display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  .hero-left { padding: 5rem 3rem 5rem 4rem; }
+  .hero-badge {
+    display: inline-block; background: var(--menthe); color: var(--menthe-dark);
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 0.9rem; border-radius: 20px; margin-bottom: 1.8rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    line-height: 1.15; margin-bottom: 1.4rem; font-weight: 400;
+  }
+  .hero-title em { font-style: italic; color: var(--lilas-dark); }
+  .hero-sub { font-size: 1rem; color: var(--text-light); line-height: 1.7; max-width: 400px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-btns { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    background: var(--lilas-dark); color: white; border: none;
+    padding: 0.85rem 2rem; border-radius: 30px; font-size: 0.9rem;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500;
+    transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .btn-primary:hover { background: #8060aa; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--text); border: 1.5px solid rgba(42,42,42,0.25);
+    padding: 0.85rem 2rem; border-radius: 30px; font-size: 0.9rem;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s; letter-spacing: 0.02em;
+  }
+  .btn-ghost:hover { border-color: var(--lilas-dark); color: var(--lilas-dark); }
+  .hero-right {
+    height: 88vh; background: var(--lilas);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-visual {
+    width: 260px; height: 340px; background: white; border-radius: 18px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem; box-shadow: 0 20px 60px rgba(155,127,192,0.2);
+  }
+  .hero-visual-top { width: 180px; height: 190px; background: var(--menthe); border-radius: 12px; position: relative; overflow: hidden; }
+  .sweatshirt-svg { width: 100%; height: 100%; }
+  .hero-visual-info { padding: 0 1.2rem; width: 100%; }
+  .hvi-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; }
+  .hvi-price { font-size: 0.85rem; color: var(--lilas-dark); font-weight: 500; margin-top: 0.2rem; }
+  .hvi-add { margin-top: 0.7rem; width: 100%; background: var(--lilas); border: none; border-radius: 8px; padding: 0.5rem; font-size: 0.8rem; cursor: pointer; color: var(--text); font-family: 'DM Sans', sans-serif; }
+  .blob {
+    position: absolute; width: 250px; height: 250px; border-radius: 50%;
+    background: rgba(200,230,216,0.4); top: 10%; right: -80px;
+  }
+  .blob2 {
+    position: absolute; width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(249,247,244,0.5); bottom: 15%; left: -60px;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--text); padding: 0.9rem 0; overflow: hidden; }
+  .marquee-inner { display: flex; gap: 3rem; animation: marquee 18s linear infinite; white-space: nowrap; }
+  .marquee-inner span { color: white; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+  .marquee-dot { color: var(--lilas) !important; opacity: 1 !important; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* SECTION PRODUITS */
+  .section { padding: 5rem 4rem; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; }
+  .section-link { font-size: 0.85rem; color: var(--lilas-dark); text-decoration: none; letter-spacing: 0.04em; border-bottom: 1px solid var(--lilas-dark); padding-bottom: 2px; }
+  .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .product-card { cursor: pointer; }
+  .product-img {
+    border-radius: 14px; height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem; position: relative; overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .product-card:hover .product-img { transform: translateY(-4px); }
+  .product-img.lilas { background: var(--lilas); }
+  .product-img.menthe { background: var(--menthe); }
+  .product-img.blanc { background: #EEE8F5; }
+  .product-img.rose { background: #F5E0F0; }
+  .product-tag {
+    position: absolute; top: 0.8rem; left: 0.8rem;
+    background: white; border-radius: 10px; padding: 0.2rem 0.6rem;
+    font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text);
+  }
+  .product-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .product-price { font-size: 0.88rem; color: var(--lilas-dark); }
+
+  /* À PROPOS */
+  .about { background: var(--lilas); padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; }
+  .about-title em { font-style: italic; }
+  .about-text { color: var(--text-light); line-height: 1.8; font-size: 0.95rem; margin-bottom: 2rem; font-weight: 300; }
+  .about-stats { display: flex; gap: 3rem; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--lilas-dark); }
+  .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem; }
+  .about-right { display: flex; gap: 1rem; }
+  .about-img-tall { flex: 2; height: 420px; background: white; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+  .about-img-short { flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+  .about-img-sm { height: 195px; background: var(--menthe); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: serif; color: #5AA882; font-size: 0.9rem; opacity: 0.8; }
+  .about-img-sm2 { height: 195px; background: #EEE8F5; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: serif; color: #9B7FC0; font-size: 0.9rem; opacity: 0.8; }
+
+  /* NEWSLETTER */
+  .newsletter { padding: 5rem 4rem; text-align: center; }
+  .newsletter-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 0.8rem; }
+  .newsletter-sub { color: var(--text-light); font-size: 0.95rem; margin-bottom: 2rem; }
+  .newsletter-form { display: flex; gap: 0; max-width: 420px; margin: 0 auto; }
+  .newsletter-form input {
+    flex: 1; padding: 0.85rem 1.2rem; border: 1.5px solid rgba(221,208,236,0.8);
+    border-right: none; border-radius: 30px 0 0 30px; font-size: 0.9rem;
+    outline: none; font-family: 'DM Sans', sans-serif; background: white; color: var(--text);
+  }
+  .newsletter-form button {
+    background: var(--lilas-dark); color: white; border: none;
+    padding: 0.85rem 1.5rem; border-radius: 0 30px 30px 0;
+    font-size: 0.85rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  /* FOOTER */
+  footer { background: var(--text); color: rgba(255,255,255,0.7); padding: 3rem 4rem 2rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: white; margin-bottom: 0.8rem; }
+  .footer-logo span { color: var(--lilas); }
+  .footer-desc { font-size: 0.85rem; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--lilas); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.8rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vh; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .about { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .about-right { display: none; }
+    .section { padding: 3rem 1.5rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">sweat<span>&</span>co</div>
+  <ul class="nav-links">
+    <li><a href="#">Nouveautés</a></li>
+    <li><a href="#">Femme</a></li>
+    <li><a href="#">Homme</a></li>
+    <li><a href="#">Soldes</a></li>
+    <li><a href="#">À propos</a></li>
+  </ul>
+  <div class="nav-right">
+    <span>🔍</span>
+    <span>♡</span>
+    <button class="cart-btn">Panier (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">✦ Nouvelle collection 2026</div>
+    <h1 class="hero-title">Le style<br>sans <em>effort</em>,<br>chaque jour.</h1>
+    <p class="hero-sub">Des pièces minimalistes et douces, pensées pour les jeunes qui veulent se sentir bien dans leur quotidien.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Découvrir la collection</button>
+      <button class="btn-ghost">Notre histoire</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="blob"></div>
+    <div class="blob2"></div>
+    <div class="hero-visual">
+      <div class="hero-visual-top">
+        <svg viewBox="0 0 180 190" class="sweatshirt-svg">
+          <rect x="30" y="60" width="120" height="110" rx="8" fill="white" opacity="0.6"/>
+          <path d="M30 80 L0 60 L20 40 L50 55 Q60 30 90 30 Q120 30 130 55 L160 40 L180 60 L150 80" fill="white" opacity="0.5"/>
+          <ellipse cx="90" cy="32" rx="18" ry="10" fill="white" opacity="0.4"/>
+          <rect x="55" y="155" width="25" height="20" rx="4" fill="white" opacity="0.3"/>
+          <rect x="100" y="155" width="25" height="20" rx="4" fill="white" opacity="0.3"/>
+          <text x="90" y="108" text-anchor="middle" font-family="Playfair Display, serif" font-size="11" fill="#9B7FC0" opacity="0.8">s&amp;co</text>
+        </svg>
+      </div>
+      <div class="hero-visual-info">
+        <div class="hvi-name">Sweat Doux Lilas</div>
+        <div class="hvi-price">49 €</div>
+        <button class="hvi-add">+ Ajouter au panier</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>Livraison offerte dès 60€</span><span class="marquee-dot">✦</span>
+    <span>Nouvelle collection disponible</span><span class="marquee-dot">✦</span>
+    <span>Retours gratuits 30 jours</span><span class="marquee-dot">✦</span>
+    <span>Matières douces & éco-responsables</span><span class="marquee-dot">✦</span>
+    <span>Livraison offerte dès 60€</span><span class="marquee-dot">✦</span>
+    <span>Nouvelle collection disponible</span><span class="marquee-dot">✦</span>
+    <span>Retours gratuits 30 jours</span><span class="marquee-dot">✦</span>
+    <span>Matières douces & éco-responsables</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- PRODUITS -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Nos coups de cœur</h2>
+    <a href="#" class="section-link">Voir tout →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img lilas">
+        <span class="product-tag">Nouveau</span>
+        <svg width="90" height="100" viewBox="0 0 90 100">
+          <path d="M15 35 L0 25 L10 15 L25 22 Q30 10 45 10 Q60 10 65 22 L80 15 L90 25 L75 35 L75 85 Q75 90 70 90 L20 90 Q15 90 15 85 Z" fill="white" opacity="0.6"/>
+          <text x="45" y="60" text-anchor="middle" font-size="8" fill="#9B7FC0" font-family="serif">s&amp;co</text>
+        </svg>
+      </div>
+      <div class="product-name">Sweat Oversize — Lilas</div>
+      <div class="product-price">49 €</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img menthe">
+        <svg width="80" height="95" viewBox="0 0 80 95">
+          <rect x="10" y="25" width="60" height="65" rx="6" fill="white" opacity="0.6"/>
+          <path d="M10 35 L0 20 L15 10 L28 18 Q32 8 40 8 Q48 8 52 18 L65 10 L80 20 L70 35" fill="white" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="product-name">T-shirt Essentiel — Menthe</div>
+      <div class="product-price">29 €</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img blanc">
+        <span class="product-tag">−20%</span>
+        <svg width="75" height="100" viewBox="0 0 75 100">
+          <rect x="15" y="0" width="45" height="80" rx="4" fill="white" opacity="0.7"/>
+          <rect x="0" y="0" width="14" height="60" rx="3" fill="white" opacity="0.5"/>
+          <rect x="61" y="0" width="14" height="60" rx="3" fill="white" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="product-name">Cargo Relax — Ecru</div>
+      <div class="product-price"><s style="color:#bbb;font-size:0.8rem">55 €</s> 44 €</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img rose">
+        <svg width="80" height="95" viewBox="0 0 80 95">
+          <path d="M15 35 L0 25 L10 15 L25 22 Q30 10 40 10 Q50 10 55 22 L70 15 L80 25 L65 35 L65 85 Q65 90 60 90 L20 90 Q15 90 15 85 Z" fill="white" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="product-name">Hoodie Zip — Rose Pâle</div>
+      <div class="product-price">59 €</div>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about">
+  <div>
+    <h2 class="about-title">Une marque <em>née</em><br>pour le quotidien.</h2>
+    <p class="about-text">Chez sweat&co, on croit que le style ne devrait jamais être compliqué. On crée des pièces confortables, douces et intemporelles — pensées pour les jeunes qui vivent à 100 à l'heure.</p>
+    <p class="about-text">Des matières soigneusement choisies, des coupes étudiées, un style qui parle pour vous sans que vous ayez à forcer.</p>
+    <div class="about-stats">
+      <div><div class="stat-num">2k+</div><div class="stat-label">Clients satisfaits</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Matières douces</div></div>
+      <div><div class="stat-num">40+</div><div class="stat-label">Références</div></div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-img-tall">
+      <svg width="100" height="130" viewBox="0 0 100 130">
+        <path d="M20 45 L0 30 L12 18 L32 28 Q38 12 50 12 Q62 12 68 28 L88 18 L100 30 L80 45 L80 115 Q80 122 73 122 L27 122 Q20 122 20 115 Z" fill="#DDD0EC" opacity="0.7"/>
+        <text x="50" y="80" text-anchor="middle" font-size="11" fill="#9B7FC0" font-family="Playfair Display, serif">sweat&amp;co</text>
+      </svg>
+    </div>
+    <div class="about-img-short">
+      <div class="about-img-sm">coton doux ✦</div>
+      <div class="about-img-sm2">éco-pensé ✦</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2 class="newsletter-title">Rejoins la communauté</h2>
+  <p class="newsletter-sub">Nouveautés, offres exclusives, inspi — directement dans ta boîte mail.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="ton@email.com" />
+    <button>S'inscrire</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">sweat<span>&</span>co</div>
+      <p class="footer-desc">Le style décontracté, pensé pour les jeunes. Des pièces douces pour chaque moment du quotidien.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Boutique</h4>
+      <ul>
+        <li><a href="#">Nouveautés</a></li>
+        <li><a href="#">Femme</a></li>
+        <li><a href="#">Homme</a></li>
+        <li><a href="#">Soldes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Aide</h4>
+      <ul>
+        <li><a href="#">Livraison</a></li>
+        <li><a href="#">Retours</a></li>
+        <li><a href="#">Tailles</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Suivez-nous</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Pinterest</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 sweat&co. Tous droits réservés.</span>
+    <span>Mentions légales · CGV · Confidentialité</span>
+  </div>
+</footer>
+
+</body>
+</html>
